@@ -14,3 +14,20 @@ function avg(arr) {
 let numbers = [4,5,6,7,0,1,2]
 let firstNums = (numArr, target) => numArr.indexOf(target)
 console.log(firstNums(numbers,7))
+
+//VERYHARD: You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+var Change = function(coins, amount){
+  const table = new Array(amount + 1).fill(Infinity);
+  table[0]=0;
+
+  for(let coin of coins){
+    for(let i =0; i <table.length; i++){
+      if(coin<= i){
+        let idx = i - coin;
+        let potentialAmt = table[idx] + 1;
+        table[i] = Math.min(potentialAmt,table[i]);
+      }
+    }
+  }
+  return table[table.length -1] === Infinity ? -1: table[table.length -1];
+};
